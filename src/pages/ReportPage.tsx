@@ -4,7 +4,7 @@ import { useState, useRef, ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Camera, MapPin, UploadCloud, CheckCircle, AlertTriangle, LoaderCircle } from "lucide-react";
+import { Camera, MapPin, UploadCloud, CheckCircle, AlertTriangle, LoaderCircle, Image as ImageIcon } from "lucide-react";
 
 // Define the structure of the AI analysis result
 interface AIAnalysisResult {
@@ -70,14 +70,23 @@ export default function ReportPage() {
   const [error, setError] = useState<string | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const cameraInputRef = useRef<HTMLInputElement>(null);
 
-  const handleCaptureClick = () => {
-    // Reset state for new report
+  const resetState = () => {
     setImagePreview(null);
     setBase64Image(null);
     setResult(null);
     setError(null);
     setIsLoading(false);
+  };
+
+  const handleCaptureClick = () => {
+    resetState();
+    cameraInputRef.current?.click();
+  };
+
+  const handleUploadClick = () => {
+    resetState();
     fileInputRef.current?.click();
   };
 
@@ -208,18 +217,32 @@ export default function ReportPage() {
                     <div className="mx-auto bg-gray-100 rounded-lg w-full h-48 flex items-center justify-center">
                         <Camera className="text-gray-400" size={48}/>
                     </div>
-                    <Button onClick={handleCaptureClick} className="w-full text-lg py-6">
-                        <Camera className="mr-2"/> Capture Issue
-                    </Button>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <Button onClick={handleCaptureClick} className="w-full text-lg py-6 flex flex-col h-auto">
+                          <Camera className="mb-2" size={24}/> 
+                          <span>Take Photo</span>
+                      </Button>
+                      <Button onClick={handleUploadClick} variant="outline" className="w-full text-lg py-6 flex flex-col h-auto">
+                          <ImageIcon className="mb-2" size={24}/> 
+                          <span>Upload Gallery</span>
+                      </Button>
+                    </div>
                 </div>
             )}
             
-            {/* Hidden file input */} 
+            {/* Hidden inputs */} 
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+            />
             <input
               type="file"
               accept="image/*"
               capture="environment"
-              ref={fileInputRef}
+              ref={cameraInputRef}
               onChange={handleFileChange}
               className="hidden"
             />

@@ -152,22 +152,8 @@ export default function Dashboard() {
   return (
     <div className="h-[100dvh] w-full flex flex-col bg-slate-950 text-slate-100 overflow-hidden font-sans">
       {/* Header */}
-      <header className="flex items-center justify-between px-5 py-3 border-b border-slate-800 bg-slate-900/80 backdrop-blur shrink-0 z-20">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center">
-            <MapPin size={18} className="text-white" />
-          </div>
-          <div>
-            <h1 className="text-base font-bold tracking-tight leading-none">
-              InfraFix Nigeria
-            </h1>
-            <span className="text-[10px] uppercase tracking-widest text-slate-500 font-mono">
-              Admin Portal
-            </span>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-4 font-mono text-xs">
+      <header className="flex items-center justify-end px-5 py-2 border-b border-slate-800 bg-slate-900/80 backdrop-blur shrink-0 z-20">
+        <div className="flex items-center gap-4 font-mono text-[10px] sm:text-xs">
           <div className="flex items-center gap-2 text-slate-400">
             {connected ? (
               <Wifi size={14} className="text-emerald-400" />
